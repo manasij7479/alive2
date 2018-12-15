@@ -6,6 +6,7 @@
 #include "ir/function.h"
 #include "smt/solver.h"
 #include "util/errors.h"
+#include <set>
 #include <string>
 #include <ostream>
 #include <unordered_map>
@@ -55,5 +56,16 @@ public:
   TypingAssignments getTypings() const;
   void fixupTypes(const TypingAssignments &ty);
 };
+
+smt::expr preprocess(Transform &t, const std::set<smt::expr> &qvars0,
+                const std::set<smt::expr> &undef_qvars, smt::expr && e);
+
+
+using print_var_val_ty = std::function<void(std::ostream&, const smt::Model&)>;
+
+void error(util::Errors &errs, IR::State &src_state, IR::State &tgt_state,
+                  const smt::Result &r, const IR::Value *var,
+                  const char *msg, bool check_each_var,
+                  print_var_val_ty print_var_val);
 
 }

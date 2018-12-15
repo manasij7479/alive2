@@ -100,9 +100,7 @@ static void print_varval(ostream &os, State &st, const Model &m,
 }
 
 
-using print_var_val_ty = function<void(ostream&, const Model&)>;
-
-static void error(Errors &errs, State &src_state, State &tgt_state,
+void tools::error(Errors &errs, State &src_state, State &tgt_state,
                   const Result &r, const Value *var,
                   const char *msg, bool check_each_var,
                   print_var_val_ty print_var_val) {
@@ -182,8 +180,8 @@ static void error(Errors &errs, State &src_state, State &tgt_state,
 }
 
 
-static expr preprocess(Transform &t, const set<expr> &qvars0,
-                       const set<expr> &undef_qvars, expr && e) {
+expr tools::preprocess(Transform &t, const set<expr> &qvars0,
+                const set<expr> &undef_qvars, expr && e) {
   if (hit_half_memory_limit())
     return expr::mkForAll(qvars0, move(e));
 

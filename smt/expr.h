@@ -22,7 +22,6 @@ namespace smt {
 class expr {
   uintptr_t ptr;
 
-  expr(Z3_ast ast);
   bool isZ3Ast() const;
   Z3_ast ast() const;
   Z3_ast operator()() const { return ast(); }
@@ -31,7 +30,6 @@ class expr {
 
   Z3_sort sort() const;
   Z3_decl decl() const;
-  Z3_app isApp() const;
   Z3_app isAppOf(int app_type) const;
 
   expr binop_commutative(const expr &rhs,
@@ -74,6 +72,7 @@ public:
     std::swap(ptr, other.ptr);
   }
 
+  expr(Z3_ast ast);
   expr(const expr &other);
   expr(bool val) : expr(val ? mkTrue() : mkFalse()) {}
   ~expr();
@@ -119,7 +118,7 @@ public:
   bool isSMin() const;
   bool isSMax() const;
   bool isSigned() const;
-
+  Z3_app isApp() const;
   unsigned bits() const;
   bool isUInt(uint64_t &n) const;
   bool isInt(int64_t &n) const;
