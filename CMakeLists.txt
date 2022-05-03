@@ -232,7 +232,7 @@ add_executable(alive
                "${PROJECT_BINARY_DIR}/tools/alive_lexer.cpp"
                "tools/alive_parser.cpp"
               )
-target_link_libraries(alive PRIVATE ${ALIVE_LIBS})
+target_link_libraries(alive PRIVATE ${ALIVE_LIBS} pthread)
 
 add_executable(alive-jobserver
                "tools/alive-jobserver.cpp"

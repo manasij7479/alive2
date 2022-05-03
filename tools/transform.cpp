@@ -99,7 +99,7 @@ void tools::print_model_val(ostream &os, const State &st, const Model &m,
 
 using print_var_val_ty = function<void(ostream&, const Model&)>;
 
-static bool error(Errors &errs, const State &src_state, const State &tgt_state,
+bool tools::error(Errors &errs, const State &src_state, const State &tgt_state,
                   const Result &r, const Value *var, const char *msg,
                   bool check_each_var, print_var_val_ty print_var_val) {
 
@@ -245,6 +245,7 @@ static bool error(Errors &errs, const State &src_state, const State &tgt_state,
 }
 
 
+
 static void instantiate_undef(const Input *in, map<expr, expr> &instances,
                               const Type &ty, unsigned child) {
   if (auto agg = ty.getAsAggregateType()) {
@@ -296,8 +297,8 @@ static void instantiate_undef(const Input *in, map<expr, expr> &instances,
   instances = std::move(instances2);
 }
 
-static expr preprocess(const Transform &t, const set<expr> &qvars0,
-                       const set<expr> &undef_qvars, expr &&e) {
+expr tools::preprocess(const Transform &t, const set<expr> &qvars0,
+                const set<expr> &undef_qvars, expr && e) {
   if (hit_half_memory_limit())
     return expr::mkForAll(qvars0, std::move(e));
 

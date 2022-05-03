@@ -30,7 +30,7 @@ smt_initializer::~smt_initializer() {
 }
 
 void smt_initializer::init() {
-  ctx.init();
+  ctx.initialize();
   solver_init();
 }
 

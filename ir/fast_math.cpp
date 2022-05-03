@@ -164,7 +164,7 @@ public:
           nn.op1 = root(node.op1);
           if (node.op2 != -1u)
             nn.op2 = root(node.op2);
-          assert(is_neq(node <=> nn));
+          assert((node <=> nn) != 0);
 
           decl_equivalent(std::move(nn), n);
           remove(node);

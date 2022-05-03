@@ -5,6 +5,7 @@
 
 #if defined(__clang__) && __clang_major__ < 15 && defined(__APPLE__)
 
+
 #include <compare>
 
 namespace std {
@@ -45,7 +46,7 @@ template <typename X, typename Y>
 std::weak_ordering operator<=>(const std::pair<X,Y> &lhs,
                                const std::pair<X,Y> &rhs) {
   if (auto cmp = lhs.first <=> rhs.first;
-      std::is_neq(cmp))
+      is_neq(cmp))
     return cmp;
   return lhs.second <=> rhs.second;
 }
@@ -54,7 +55,7 @@ template <typename T>
 std::weak_ordering compare_iterators(T &&I, const T &E, T &&II, const T &EE) {
   while (I != E && II != EE) {
     auto cmp = *I <=> *II;
-    if (std::is_neq(cmp))
+    if (is_neq(cmp))
       return cmp;
     ++I, ++II;
   }
