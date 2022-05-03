@@ -100,7 +100,7 @@ void tools::print_model_val(ostream &os, const State &st, const Model &m,
 
 using print_var_val_ty = function<void(ostream&, const Model&)>;
 
-static bool error(Errors &errs, State &src_state, State &tgt_state,
+bool tools::error(Errors &errs, State &src_state, State &tgt_state,
                   const Result &r, Solver &solver, const Value *var,
                   const char *msg, bool check_each_var,
                   print_var_val_ty print_var_val) {
@@ -315,6 +315,7 @@ static bool error(Errors &errs, State &src_state, State &tgt_state,
 }
 
 
+
 static void instantiate_undef(const Input *in, map<expr, expr> &instances,
                               const Type &ty, unsigned child) {
   if (auto agg = ty.getAsAggregateType()) {
@@ -366,8 +367,8 @@ static void instantiate_undef(const Input *in, map<expr, expr> &instances,
   instances = std::move(instances2);
 }
 
-static expr preprocess(const Transform &t, const set<expr> &qvars0,
-                       const set<expr> &undef_qvars, expr &&e) {
+expr tools::preprocess(const Transform &t, const set<expr> &qvars0,
+                const set<expr> &undef_qvars, expr && e) {
   if (hit_half_memory_limit())
     return expr::mkForAll(qvars0, std::move(e));
 
@@ -555,7 +556,7 @@ check_refinement(Errors &errs, const Transform &t, State &src_state,
       errs.add("Precondition is always false", false);
       return;
     }
-  
+
     vector<pair<expr, expr>> repls;
     auto vars_pre = pre_src.vars();
     for (auto &v : qvars) {

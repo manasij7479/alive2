@@ -19,7 +19,7 @@ if (MSVC)
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O2 /Oi /Zi ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
   set(CMAKE_EXE_LINKER_FLAGS         "/LTCG:INCREMENTAL ${CMAKE_EXE_LINKER_FLAGS}")
 else()
-  set(CMAKE_CXX_FLAGS                "-Wall -Werror -fPIC -fstrict-enums ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS                "-Wall -fPIC -fstrict-enums ${CMAKE_CXX_FLAGS}")
   set(CMAKE_CXX_FLAGS_DEBUG          "-g -Og ${CMAKE_CXX_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_RELEASE        "-O3 ${CMAKE_CXX_FLAGS_RELEASE}")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} -g ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
@@ -240,7 +240,7 @@ add_executable(alive
                "${PROJECT_BINARY_DIR}/tools/alive_lexer.cpp"
                "tools/alive_parser.cpp"
               )
-target_link_libraries(alive PRIVATE ${ALIVE_LIBS})
+target_link_libraries(alive PRIVATE ${ALIVE_LIBS} pthread)
 
 add_executable(alive-jobserver
                "tools/alive-jobserver.cpp"

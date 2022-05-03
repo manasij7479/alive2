@@ -16,7 +16,7 @@ public:
   Z3_context operator()() const { return ctx; }
   Z3_params getNoTimeoutParam() const { return no_timeout_param; }
 
-  void init();
+  void initialize();
   void destroy();
 };
 

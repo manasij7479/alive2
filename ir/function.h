@@ -116,6 +116,7 @@ public:
   void setType(IR::Type &t) { type = &t; }
 
   const std::string& getName() const { return name; }
+  void setName(std::string &&n) { name = std::move(n); }
 
   auto& getFnAttrs() { return attrs; }
   auto& getFnAttrs() const { return attrs; }
