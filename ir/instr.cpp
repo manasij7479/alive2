@@ -3113,7 +3113,11 @@ expr Assume::getTypeConstraints(const Function &f) const {
     return true;
   case AndNonPoison:
   case IfNonPoison:
-    return args[0]->getType().enforceIntType();
+    if (auto ins = dynamic_cast<Instr *>(args[0])) {
+      return ins->getTypeConstraints(f) &&
+             args[0]->getType().enforceIntType(1);
+    }
+    return args[0]->getType().enforceIntType(1);
   case Align:
     return args[0]->getType().enforcePtrType() &&
            args[1]->getType().enforceIntType();

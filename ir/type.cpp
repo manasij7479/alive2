@@ -1215,6 +1215,10 @@ expr SymbolicType::getTypeConstraints() const {
   return c;
 }
 
+smt::expr ConstrainedSymbolicType::getTypeConstraints() const {
+  return constraint(sizeVar()) && IR::SymbolicType::getTypeConstraints();
+}
+
 expr SymbolicType::sizeVar() const {
   DISPATCH_EXPR(sizeVar());
 }

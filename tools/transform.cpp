@@ -379,6 +379,7 @@ static expr encode_undef_refinement(const State &src_state,
 
   if (dynamic_cast<const VoidType *>(&type))
     return false;
+
   if (b.undef_vars.empty())
     // target is never undef
     return false;

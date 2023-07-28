@@ -204,7 +204,7 @@ StateValue ConstantFn::toSMT(State &s) const {
     return { v.log2(bits()), expr(vp) };
   }
   case WIDTH:
-    r = args[0]->bits();
+    r = expr::mkUInt(args[0]->bits(), bits());
     break;
   }
   return { std::move(r), true };

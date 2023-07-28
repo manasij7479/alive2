@@ -356,7 +356,7 @@ public:
 };
 
 
-class SymbolicType final : public Type {
+class SymbolicType : public Type {
 public:
   enum TypeNum { Int, Float, Ptr, Array, Vector, Struct, Undefined };
 
@@ -420,6 +420,14 @@ public:
   void print(std::ostream &os) const override;
 };
 
+class ConstrainedSymbolicType : public IR::SymbolicType {
+public:
+  ConstrainedSymbolicType(std::string name, SymbolicType::TypeNum type,
+                          std::function<smt::expr(smt::expr)> constraint)
+    : IR::SymbolicType(std::move(name), (1 << type)), constraint(constraint) {}
+  smt::expr getTypeConstraints() const override;
+  std::function<smt::expr(smt::expr)> constraint;
+};
 
 bool hasPtr(const Type &t);
 bool isNonPtrVector(const Type &t);

@@ -8,9 +8,9 @@
 
 #include <compare>
 
-namespace std {
-inline bool is_neq(std::weak_ordering o) { return o != 0; }
-}
+// namespace std {
+// inline bool is_neq(std::weak_ordering o) { return o != 0; }
+// }
 
 namespace {
 
@@ -42,14 +42,14 @@ std::weak_ordering operator<=>(const std::map<K,V> &lhs,
   return compare_iterators(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 }
 
-template <typename X, typename Y>
-std::weak_ordering operator<=>(const std::pair<X,Y> &lhs,
-                               const std::pair<X,Y> &rhs) {
-  if (auto cmp = lhs.first <=> rhs.first;
-      is_neq(cmp))
-    return cmp;
-  return lhs.second <=> rhs.second;
-}
+// template <typename X, typename Y>
+// std::weak_ordering operator<=>(const std::pair<X,Y> &lhs,
+//                                const std::pair<X,Y> &rhs) {
+//   if (auto cmp = lhs.first <=> rhs.first;
+//       is_neq(cmp))
+//     return cmp;
+//   return lhs.second <=> rhs.second;
+// }
 
 template <typename T>
 std::weak_ordering compare_iterators(T &&I, const T &E, T &&II, const T &EE) {
